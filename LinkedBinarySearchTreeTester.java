@@ -19,6 +19,8 @@ public class LinkedBinarySearchTreeTester{
     System.out.print(tree);
     System.out.println("# of nodes:"+tree.size());
     System.out.println();
+    System.out.println("Inorder traversal:");
+    System.out.println(tree.inOrder());
 
     tree.removeElement(3);
     System.out.println("after remove 3:");
@@ -37,6 +39,13 @@ public class LinkedBinarySearchTreeTester{
     System.out.print(tree);
     System.out.println("# of nodes:"+tree.size());
     System.out.println();
+
+    tree = new LinkedBinarySearchTree<Integer>(5);
+    tree.addElement(7);
+    tree.addElement(3);
+    tree.addElement(4);
+    tree.addElement(6);
+    tree.addElement(8);
 
     //test cases
     System.out.println("test: find(5)");

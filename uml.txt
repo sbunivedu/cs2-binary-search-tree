@@ -1,0 +1,75 @@
+@startuml
+'http://www.plantuml.com/plantuml
+
+BinaryTreeADT <|-- LinkedBinaryTree
+BinaryTreeNode <.. LinkedBinaryTree
+LinkedBinaryTree <|-- LinkedBinarySearchTree
+BinarySearchTreeADT <|-- LinkedBinarySearchTree
+
+Interface BinaryTreeADT {
+  +T getRootElement()
+  +boolean isEmpty()
+  +int size()
+  +boolean contains(T targetElement)
+  +T find(T targetElement)
+  +String toString()
+  +String inOrder()
+  +String preOrder()
+  +String postOrder()
+  +String levelOrder()
+}
+
+Interface BinarySearchTreeADT {
+  +addElement(T element)
+  +T removeElement(T targetElement)
+  +removeAllOccurances(T targetElement)
+  +T removeMin()
+  +T removeMax()
+  +T findMin()
+  +T findMax()
+}
+
+class LinkedBinaryTree {
+  -BinaryTreeNode<T> root
+  +LinkedBinaryTree(T element)
+  +LinkedBinaryTree(T element, LinkedBinaryTree<T> left, LinkedBinaryTree<T> right)
+  +T getRootElement()
+  +boolean isEmpty()
+  +int size()
+  +boolean contains(T targetElement)
+  +T find(T targetElement)
+  +String toString()
+  +String inOrder()
+  +String preOrder()
+  +String postOrder()
+  +String levelOrder()
+  +int getHeight()
+  -int height(BinaryTreeNode<T> node)
+  -BinaryTreeNode<T> findNode(T targetElement, BinaryTreeNode<T> next)
+}
+
+class LinkedBinarySearchTree {
+  +addElement(T element)
+  +T removeElement(T targetElement)
+  +removeAllOccurances(T targetElement)
+  +T removeMin()
+  +T removeMax()
+  +T findMin()
+  +T findMax()
+}
+
+class BinaryTreeNode {
+  -T element
+  -BinaryTreeNode<T> left, right
+  +BinaryTreeNode(T obj)
+  +int numChildren()
+  +T getElement()
+  +BinaryTreeNode<T> getLeft()
+  +void setLeft(BinaryTreeNode<T> node)
+  +BinaryTreeNode<T> getRight()
+  +void setRight(BinaryTreeNode<T> node)
+  +String toString()
+  +void print()
+  -void recPrint(boolean isRight, String indent)
+}
+@enduml
