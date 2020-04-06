@@ -37,8 +37,6 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T>
       throw new NonComparableElementException("LinkedBinarySearchTree");
     }
 
-    Comparable<T> comparableElement = (Comparable<T>)element;
-
     if (isEmpty()){
       root = new BinaryTreeNode<T>(element);
     }else{
