@@ -1,15 +1,14 @@
 public class LinkedBinarySearchTreeTester{
   public static void main(String[] args){
 
-/* adding elements 5, 7, 3, and 4 should result in the following tree:
-    5
-   / \
-  3  7
-   \
-   4
-*/
+    /* adding elements 5, 7, 3, 4, 6, and 8 should result in the following tree:
+        5
+      /  \
+     3    7
+      \  / \
+      4 6   8
+    */
 
-    //create subtrees and use them to form the overall tree
     LinkedBinarySearchTree<Integer> tree = new LinkedBinarySearchTree<Integer>(5);
     tree.addElement(7);
     tree.addElement(3);
