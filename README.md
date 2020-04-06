@@ -28,7 +28,7 @@ Implement the `find` method in the `LinkedBinarySearchTree` class to add the
 ability to search for an element in your tree. Study to understand how the
 `addElement` method works and apply the same logic. Because the `LinkedBinarySearchTree`
 class implements the `LinkedBinaryTree` class, it inherits a definition of the
-`find` method, but we want to override this definition because this method can
+`find` method, but we want to override this definition because this method can be
 implemented more efficiently by taking advantage of the ordering property of
 a Binary Search Tree. A set of test cases are included in the `main` method of
 `LinkedBinarySearchTreeTester`. Your implementation should make all the test cases
