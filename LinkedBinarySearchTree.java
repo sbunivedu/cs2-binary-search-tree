@@ -145,13 +145,17 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T>
     }else{                              // CASE 3: both L & R children
       BinaryTreeNode<T> parent = node;   // remove the min in this subtree
       BinaryTreeNode<T> current = node.right;
-      while (current.left != null){
+      while (current.left != null){ // find smallest node in right subtree
         parent = current;
         current = current.left;
       }
-      parent.left = current.right;
-      current.left = node.left;
-      current.right = node.right;
+      if(parent == node){ // right child is smallest, or, while loop is not run
+        current.left = node.left;
+      }else{
+        parent.left = current.right;
+        current.left = node.left;
+        current.right = node.right;
+      }
       return current;
     }
   }

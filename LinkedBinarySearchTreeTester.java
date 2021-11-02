@@ -9,12 +9,7 @@ public class LinkedBinarySearchTreeTester{
       4 6   8
     */
 
-    LinkedBinarySearchTree<Integer> tree = new LinkedBinarySearchTree<Integer>(5);
-    tree.addElement(7);
-    tree.addElement(3);
-    tree.addElement(4);
-    tree.addElement(6);
-    tree.addElement(8);
+    LinkedBinarySearchTree<Integer> tree = createTree();
     System.out.print(tree);
     System.out.println("# of nodes:"+tree.size());
     System.out.println();
@@ -27,26 +22,22 @@ public class LinkedBinarySearchTreeTester{
     System.out.println("# of nodes:"+tree.size());
     System.out.println();
 
+    tree = createTree();
     tree.removeElement(5);
     System.out.println("after remove 5:");
     System.out.print(tree);
     System.out.println("# of nodes:"+tree.size());
     System.out.println();
 
+    tree = createTree();
     tree.removeElement(7);
     System.out.println("after remove 7:");
     System.out.print(tree);
     System.out.println("# of nodes:"+tree.size());
     System.out.println();
 
-    tree = new LinkedBinarySearchTree<Integer>(5);
-    tree.addElement(7);
-    tree.addElement(3);
-    tree.addElement(4);
-    tree.addElement(6);
-    tree.addElement(8);
-
     //test cases
+    tree = createTree();
     System.out.println("test: find(5)");
     System.out.println("expect:\t5");
     System.out.println("got:\t"+tree.find(5));
@@ -61,5 +52,15 @@ public class LinkedBinarySearchTreeTester{
     System.out.println("test: find(9)");
     System.out.println("expect:\tnull");
     System.out.println("got:\t"+tree.find(9));
+  }
+
+  private static LinkedBinarySearchTree<Integer> createTree(){
+    LinkedBinarySearchTree<Integer> tree = new LinkedBinarySearchTree<Integer>(5);
+    tree.addElement(7);
+    tree.addElement(3);
+    tree.addElement(4);
+    tree.addElement(6);
+    tree.addElement(8);
+    return tree;
   }
 }
