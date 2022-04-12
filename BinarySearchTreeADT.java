@@ -14,7 +14,7 @@ public interface BinarySearchTreeADT<T> extends BinaryTreeADT<T>{
    *
    * @param targetElement the element to be removed from the tree
    */
-  public void removeElement(T targetElement);
+  public T removeElement(T targetElement);
 
   /**
    * Removes all occurences of the specified element from this tree.

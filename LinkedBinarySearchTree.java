@@ -87,77 +87,111 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T>
   }
 
   /**
-   * Removes the first element that matches the specified target
-   * element from the binary search tree.
-   * Throws a ElementNotFoundException if the specified target
-   * element is not found in the binary search tree.
-   *
-   * @param targetElement the element being sought in the binary search tree
-   * @throws ElementNotFoundException if the target element is not found
-   */
-  public void removeElement(T targetElement)
-    throws ElementNotFoundException{
-    root = removeElement(targetElement, root);
-  }
+    * Removes the first element that matches the specified target
+    * element from the binary search tree and returns a reference to
+    * it.  Throws a ElementNotFoundException if the specified target
+    * element is not found in the binary search tree.
+    *
+    * @param targetElement the element being sought in the binary search tree
+    * @throws ElementNotFoundException if the target element is not found
+    */
+   public T removeElement(T targetElement) throws ElementNotFoundException{
+     T result = null;
+
+     if (isEmpty()){
+       throw new ElementNotFoundException("LinkedBinarySearchTree");
+     }else{
+       BinaryTreeNode<T> parent = null;
+       if (((Comparable<T>)targetElement).equals(root.element)){
+         result =  root.element;
+         BinaryTreeNode<T> temp = replacement(root);
+         if (temp == null){
+           root = null;
+         }else{
+           root.element = temp.element;
+           root.setRight(temp.right);
+           root.setLeft(temp.left);
+         }
+       }else{
+         parent = root;
+         if (((Comparable)targetElement).compareTo(root.element) < 0){
+           result = removeElement(targetElement, root.getLeft(), parent);
+         }else{
+           result = removeElement(targetElement, root.getRight(), parent);
+         }
+       }
+     }
+     return result;
+   }
 
   /**
    * Removes the first element that matches the specified target
-   * element from the binary search tree starting from "node".
-   * Throws a ElementNotFoundException if the specified target
+   * element from the binary search tree and returns a reference to
+   * it.  Throws a ElementNotFoundException if the specified target
    * element is not found in the binary search tree.
    *
    * @param targetElement the element being sought in the binary search tree
    * @param node the node from which to search
-   * @return the reference to a replacement node for "node"
+   * @param parent the parent of the node from which to search
    * @throws ElementNotFoundException if the target element is not found
    */
-  private BinaryTreeNode<T> removeElement(T targetElement, BinaryTreeNode<T> node)
-    throws ElementNotFoundException{
+  private T removeElement(T targetElement, BinaryTreeNode<T> node, BinaryTreeNode<T> parent) throws ElementNotFoundException {
+    T result = null;
+
     if (node == null){
       throw new ElementNotFoundException("LinkedBinarySearchTree");
-    }else{
-      if (((Comparable<T>)targetElement).equals(node.element)){
-        node = remove(node);
-      }else if (((Comparable)targetElement).compareTo(node.element) < 0){
-        node.left = removeElement(targetElement, node.left);
+    }else if(((Comparable<T>)targetElement).equals(node.element)){
+      result =  node.element;
+      BinaryTreeNode<T> temp = replacement(node);
+      if (parent.right == node){
+        parent.right = temp;
       }else{
-        node.right = removeElement(targetElement, node.right);
+        parent.left = temp;
+      }
+    }else{
+      parent = node;
+      if (((Comparable)targetElement).compareTo(node.element) < 0){
+        result = removeElement(targetElement, node.getLeft(), parent);
+      }else{
+        result = removeElement(targetElement, node.getRight(), parent);
       }
     }
-    return node;
+    return result;
   }
 
   /**
-   * Remove the node.
-   * if the node has no children, return null.
-   * if the node has online one child, return that child.
-   * if the node has two children, return the inorder successor of
-   * the node to be removed.
+   * Returns a reference to a node that will replace the one
+   * specified for removal.  In the case where the removed node has 
+   * two children, the inorder successor is used as its replacement.
    *
-   * @param node the node to remove
-   * @return the reference to a replacement node for "node"
+   * @param node the node to be removed
+   * @return a reference to the replacing node
    */
-  private BinaryTreeNode<T> remove(BinaryTreeNode<T> node){
-    if(node.left == null){       // CASE 1: Right Child Only
-      return node.right;           // attach right subtree
-    }else if(node.right == null){  // CASE 2: Left Child Only
-      return node.left;             // attach left subtree
-    }else{                              // CASE 3: both L & R children
-      BinaryTreeNode<T> parent = node;   // remove the min in this subtree
+  private BinaryTreeNode<T> replacement(BinaryTreeNode<T> node){
+    BinaryTreeNode<T> result = null;
+
+    if((node.left == null) && (node.right == null)){
+      result = null;
+    }else if((node.left != null) && (node.right == null)){
+      result = node.left;
+    }else if((node.left == null) && (node.right != null)){
+      result = node.right;
+    }else{
       BinaryTreeNode<T> current = node.right;
-      while (current.left != null){ // find smallest node in right subtree
+      BinaryTreeNode<T> parent = node;
+
+      while(current.left != null){
         parent = current;
         current = current.left;
       }
-      if(parent == node){ // right child is smallest, or, while loop is not run
-        current.left = node.left;
-      }else{
+      current.left = node.left;
+      if(node.right != current){
         parent.left = current.right;
-        current.left = node.left;
         current.right = node.right;
       }
-      return current;
+      result = current;
     }
+    return result;
   }
 
   /**
