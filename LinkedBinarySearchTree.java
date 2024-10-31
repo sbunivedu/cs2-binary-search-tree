@@ -2,7 +2,7 @@
  * LinkedBinarySearchTree implements the BinarySearchTreeADT interface
  * with links.
  */
-public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T>
+public class LinkedBinarySearchTree<T extends Comparable<T>> extends LinkedBinaryTree<T>
   implements BinarySearchTreeADT<T>{
   /**
    * Creates an empty binary search tree.
@@ -52,9 +52,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T>
    * @param element the element to be added to the binary search tree
    */
   private void addElement(T element, BinaryTreeNode<T> node){
-    Comparable<T> comparableElement = (Comparable<T>)element;
-
-    if (comparableElement.compareTo(node.getElement()) < 0){
+    if (element.compareTo(node.getElement()) < 0){
       // go left
       if (node.left == null){
         node.left = new BinaryTreeNode<T>(element);
@@ -102,7 +100,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T>
        throw new ElementNotFoundException("LinkedBinarySearchTree");
      }else{
        BinaryTreeNode<T> parent = null;
-       if (((Comparable<T>)targetElement).equals(root.element)){
+       if (targetElement.equals(root.element)){
          result =  root.element;
          BinaryTreeNode<T> temp = replacement(root);
          if (temp == null){
@@ -114,7 +112,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T>
          }
        }else{
          parent = root;
-         if (((Comparable)targetElement).compareTo(root.element) < 0){
+         if (targetElement.compareTo(root.element) < 0){
            result = removeElement(targetElement, root.getLeft(), parent);
          }else{
            result = removeElement(targetElement, root.getRight(), parent);
@@ -140,7 +138,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T>
 
     if (node == null){
       throw new ElementNotFoundException("LinkedBinarySearchTree");
-    }else if(((Comparable<T>)targetElement).equals(node.element)){
+    }else if(targetElement.equals(node.element)){
       result =  node.element;
       BinaryTreeNode<T> temp = replacement(node);
       if (parent.right == node){
@@ -150,7 +148,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T>
       }
     }else{
       parent = node;
-      if (((Comparable)targetElement).compareTo(node.element) < 0){
+      if (targetElement.compareTo(node.element) < 0){
         result = removeElement(targetElement, node.getLeft(), parent);
       }else{
         result = removeElement(targetElement, node.getRight(), parent);
@@ -161,7 +159,7 @@ public class LinkedBinarySearchTree<T> extends LinkedBinaryTree<T>
 
   /**
    * Returns a reference to a node that will replace the one
-   * specified for removal.  In the case where the removed node has 
+   * specified for removal.  In the case where the removed node has
    * two children, the inorder successor is used as its replacement.
    *
    * @param node the node to be removed

@@ -55,12 +55,16 @@ public class LinkedBinarySearchTreeTester{
   }
 
   private static LinkedBinarySearchTree<Integer> createTree(){
-    LinkedBinarySearchTree<Integer> tree = new LinkedBinarySearchTree<Integer>(5);
-    tree.addElement(7);
-    tree.addElement(3);
+    LinkedBinarySearchTree<Integer> tree = new LinkedBinarySearchTree<Integer>();
     tree.addElement(4);
-    tree.addElement(6);
+    tree.addElement(3);
+    tree.addElement(7);
+    tree.addElement(1);
+    tree.addElement(2);
+    tree.addElement(5);
     tree.addElement(8);
+    tree.addElement(6);
+    tree.addElement(9);
     return tree;
   }
 }
